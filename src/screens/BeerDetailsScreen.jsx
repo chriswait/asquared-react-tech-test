@@ -56,7 +56,7 @@ const BeerDetails = ({ beer }) => (
           backgroundColor: 'white',
         }}
       >
-        <img src={beer.image_url} height={400} />
+        <img src={beer.image_url} height={400} alt="" />
       </div>
     </div>
 

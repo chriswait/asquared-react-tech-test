@@ -34,7 +34,11 @@ export const BeerListItem = ({ beer }) => {
             borderRadius: 4,
           }}
         >
-          <img src={image_url} height={180} />
+          <img
+            src={image_url}
+            height={180}
+            alt="" // The API doesn't supply suitable alt-text for each image. We don't use the name, as that would be redundant text.
+          />
         </div>
       </div>
     </Link>
