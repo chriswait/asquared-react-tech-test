@@ -23,13 +23,42 @@ export const BeerListScreen = () => {
     () => (search.length ? fuse.search(search).map(({ item }) => item) : beers),
     [fuse, beers, search]
   )
+
+  // Let's get a list of all possible food pairings, and let the user choose them
+  const foodPairings = beers?.flatMap((beer) => beer.food_pairing) ?? []
+  const [selectedFoodPairing, setSelectedFoodPairing] = useState('')
+
+  const filteredBeers = selectedFoodPairing
+    ? searchedBeers?.filter(({ food_pairing }) =>
+        food_pairing.includes(selectedFoodPairing)
+      )
+    : searchedBeers
+
   return (
     <>
-      <input
-        placeholder="Search"
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
-      />
+      <div>
+        <div>
+          <input
+            placeholder="Search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            list="food-pairings"
+            placeholder="What's for dinner?"
+            value={selectedFoodPairing}
+            onChange={(event) => setSelectedFoodPairing(event.target.value)}
+            type="search" // show a clear button
+          />
+          <datalist id="food-pairings">
+            {foodPairings.map((foodPairing) => (
+              <option key={foodPairing}>{foodPairing}</option>
+            ))}
+          </datalist>
+        </div>
+      </div>
       {isError ? (
         <div>Oops! Something went wrong</div>
       ) : isLoading ? (
@@ -37,7 +66,7 @@ export const BeerListScreen = () => {
       ) : (
         <>
           <ul>
-            {searchedBeers
+            {filteredBeers
               .slice(0, 10) // You should display only 10 drinks from the API.
               .map((beer) => (
                 <BeerListItem
