@@ -1,4 +1,10 @@
-export const SearchInput = ({ value, onChange }) => (
+export const SearchInput = ({
+  value,
+  onChange,
+}: {
+  value: string
+  onChange: (value: string) => void
+}) => (
   <input
     placeholder="Search beers 🔎"
     value={value}

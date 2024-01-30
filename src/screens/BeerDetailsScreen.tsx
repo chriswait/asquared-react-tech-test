@@ -4,8 +4,9 @@ import { Divider } from '../components/Divider'
 import { Stat } from '../components/Stat'
 import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
+import { Beer } from '../beer'
 
-const BeerDetails = ({ beer }) => (
+const BeerDetails = ({ beer }: { beer: Beer }) => (
   <>
     <h1>{beer.name}</h1>
     <h2>{beer.tagline}</h2>
@@ -66,12 +67,14 @@ const BeerDetails = ({ beer }) => (
       className="responsive-row"
       style={{ gap: '1rem', justifyContent: 'space-between' }}
     >
-      <div style={{ flex: 1 }}>
-        <h2>Food Pairings</h2>
-        {beer.food_pairing.map((pairing) => (
-          <div key={pairing}>- {pairing}</div>
-        ))}
-      </div>
+      {beer.food_pairing ? (
+        <div style={{ flex: 1 }}>
+          <h2>Food Pairings</h2>
+          {beer.food_pairing.map((pairing) => (
+            <div key={pairing}>- {pairing}</div>
+          ))}
+        </div>
+      ) : null}
       <div style={{ flex: 1 }}>
         <h2>Brewers Tips</h2>
         <div>{beer.brewers_tips}</div>
@@ -85,20 +88,24 @@ const BeerDetails = ({ beer }) => (
       className="responsive-row"
       style={{ gap: '1rem', justifyContent: 'space-between' }}
     >
-      <div>
-        <h3>Hops</h3>
-        {beer.ingredients.hops.map((hop) => (
-          <div key={`${hop.name}-${hop.add}`}>
-            {hop.name} - ({hop.add})
-          </div>
-        ))}
-      </div>
-      <div>
-        <h3>Malt</h3>
-        {beer.ingredients.malt.map((malt) => (
-          <div key={malt.name}>{malt.name}</div>
-        ))}
-      </div>
+      {beer.ingredients.hops ? (
+        <div>
+          <h3>Hops</h3>
+          {beer.ingredients.hops.map((hop) => (
+            <div key={`${hop.name}-${hop.add}`}>
+              {hop.name} - ({hop.add})
+            </div>
+          ))}
+        </div>
+      ) : null}
+      {beer.ingredients.malt ? (
+        <div>
+          <h3>Malt</h3>
+          {beer.ingredients.malt.map((malt) => (
+            <div key={malt.name}>{malt.name}</div>
+          ))}
+        </div>
+      ) : null}
       <div>
         <h3>Yeast</h3>
         <div>{beer.ingredients.yeast}</div>
@@ -108,8 +115,8 @@ const BeerDetails = ({ beer }) => (
 )
 
 export const BeerDetailsScreen = () => {
-  let { id } = useParams()
-  const { data: beers, isLoading, isError } = useBeer(id)
+  const { id } = useParams()
+  const { data: beers, isLoading, isError } = useBeer(parseInt(id!, 10))
   return (
     <div style={{ paddingTop: 40, paddingBottom: 80 }}>
       <Link to="/">Go Back</Link>

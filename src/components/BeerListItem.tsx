@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { TruncatedLine } from './TruncatedLine'
+import { Beer } from '../beer'
 
-export const BeerListItem = ({ beer }) => {
+export const BeerListItem = ({ beer }: { beer: Beer }) => {
   const { name, image_url, description } = beer
   return (
     <Link
@@ -20,7 +21,7 @@ export const BeerListItem = ({ beer }) => {
         <div style={{ flex: 1, width: '100%' }}>
           <h2>{name}</h2>
           {/* ...limited to one line, with ellipsis if the description is too long */}
-          <TruncatedLine text={description} basedOn="letters" />
+          <TruncatedLine text={description} />
         </div>
         <div
           style={{

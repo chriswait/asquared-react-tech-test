@@ -7,6 +7,7 @@ import { SearchInput } from '../components/SearchInput'
 import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { useBeers } from '../queries'
+import { Beer } from '../beer'
 
 // You should display only 10 drinks from the API.
 const PAGE_SIZE = 10
@@ -77,7 +78,7 @@ export const BeerListScreen = () => {
               <Pagination />
               {filteredBeers
                 .slice(startIndex, startIndex + PAGE_SIZE)
-                .map((beer) => (
+                .map((beer: Beer) => (
                   <BeerListItem key={`beer-${beer.id}`} beer={beer} />
                 ))}
               <Pagination />

@@ -9,7 +9,7 @@ export const useBeers = () =>
     },
   })
 
-export const useBeer = (id) =>
+export const useBeer = (id: number) =>
   useQuery({
     queryKey: [`beer-${id}`],
     queryFn: async () => {

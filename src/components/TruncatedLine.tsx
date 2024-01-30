@@ -5,7 +5,7 @@
 // Here we take advantage of how absolutely positioned elements flow
 // to render all the text on a single line, and then hide the overflow and show an ellipsis
 
-export const TruncatedLine = ({ text }) => (
+export const TruncatedLine = ({ text }: { text: string }) => (
   <div style={{ position: 'relative' }}>
     <div
       style={{
