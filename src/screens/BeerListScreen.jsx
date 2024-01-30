@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import Fuse from 'fuse.js'
+import { ScrollRestoration } from 'react-router-dom'
 
 import { BeerListItem } from '../components/BeerListItem'
 import { SearchInput } from '../components/SearchInput'
@@ -60,6 +61,7 @@ export const BeerListScreen = () => {
 
   return (
     <>
+      <ScrollRestoration />
       <div className="responsive-row" style={{ alignItems: 'center' }}>
         <h1 style={{ marginBottom: '2rem' }}>Brew View 🍺</h1>
         <SearchInput value={search} onChange={setSearch} />
