@@ -15,6 +15,9 @@ a,
 button {
   color: black;
 }
+a:hover * {
+  text-decoration: underline !important;
+}
 @media (prefers-color-scheme: dark) {
   html {
     background-color: black;
