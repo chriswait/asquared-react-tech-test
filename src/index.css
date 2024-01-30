@@ -11,7 +11,8 @@ h2 {
 }
 
 /* DARK MODE */
-a {
+a,
+button {
   color: black;
 }
 @media (prefers-color-scheme: dark) {
