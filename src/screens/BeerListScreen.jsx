@@ -7,6 +7,9 @@ import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
 import { useBeers } from '../queries'
 
+// You should display only 10 drinks from the API.
+const PAGE_SIZE = 10
+
 export const BeerListScreen = () => {
   const { data: beers, isLoading, isError } = useBeers()
 
@@ -26,9 +29,9 @@ export const BeerListScreen = () => {
     () => (search.length ? fuse.search(search).map(({ item }) => item) : beers),
     [fuse, beers, search]
   )
-  const numPages = Math.ceil((filteredBeers ?? []).length / 10)
+  const numPages = Math.ceil((filteredBeers ?? []).length / PAGE_SIZE)
   const [pageIndex, setPageIndex] = useState(0)
-  const startIndex = 10 * pageIndex
+  const startIndex = PAGE_SIZE * pageIndex
   useEffect(() => {
     // Every time the list of filtered beers changes, reset the pageIndex to 0
     setPageIndex(0)
@@ -71,7 +74,7 @@ export const BeerListScreen = () => {
             <>
               <Pagination />
               {filteredBeers
-                .slice(startIndex, startIndex + 10) // You should display only 10 drinks from the API.
+                .slice(startIndex, startIndex + PAGE_SIZE)
                 .map((beer) => (
                   <BeerListItem key={`beer-${beer.id}`} beer={beer} />
                 ))}
