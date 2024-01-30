@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Fuse from 'fuse.js'
 
 import { BeerListItem } from '../components/BeerListItem'
@@ -26,22 +26,60 @@ export const BeerListScreen = () => {
     () => (search.length ? fuse.search(search).map(({ item }) => item) : beers),
     [fuse, beers, search]
   )
+  const numPages = Math.ceil((filteredBeers ?? []).length / 10)
+  const [pageIndex, setPageIndex] = useState(0)
+  const startIndex = 10 * pageIndex
+  useEffect(() => {
+    // Every time the list of filtered beers changes, reset the pageIndex to 0
+    setPageIndex(0)
+  }, [numPages, filteredBeers])
+
+  // Declare a component so we can render pagination at the top and bottom of the list
+  const Pagination = () => (
+    <div style={{ display: 'flex', justifyContent: 'center', margin: '1rem' }}>
+      {numPages > 0
+        ? [...Array(numPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setPageIndex(index)}
+              style={{
+                fontWeight: index === pageIndex ? 'bold' : undefined,
+                paddingLeft: '1rem',
+                paddingRight: '1rem',
+              }}
+            >
+              {index}
+            </button>
+          ))
+        : null}
+    </div>
+  )
 
   return (
     <>
-      <h1 style={{ marginBottom: '2rem' }}>Brew View 🍺</h1>
-      <SearchInput value={search} onChange={setSearch} />
+      <div className="responsive-row" style={{ alignItems: 'center' }}>
+        <h1 style={{ marginBottom: '2rem' }}>Brew View 🍺</h1>
+        <SearchInput value={search} onChange={setSearch} />
+      </div>
       {isError ? (
         <ErrorMessage message="Failed to load beers! Please try again" />
       ) : isLoading ? (
         <Loading />
       ) : (
-        <div style={{ paddingTop: 40, paddingBottom: 80 }}>
-          {filteredBeers
-            .slice(0, 10) // You should display only 10 drinks from the API.
-            .map((beer) => (
-              <BeerListItem key={`beer-${beer.id}`} beer={beer} />
-            ))}
+        <div style={{ paddingBottom: 80 }}>
+          {filteredBeers.length > 0 ? (
+            <>
+              <Pagination />
+              {filteredBeers
+                .slice(startIndex, startIndex + 10) // You should display only 10 drinks from the API.
+                .map((beer) => (
+                  <BeerListItem key={`beer-${beer.id}`} beer={beer} />
+                ))}
+              <Pagination />
+            </>
+          ) : (
+            <ErrorMessage message="No matching beers found!" />
+          )}
         </div>
       )}
     </>
