@@ -13,7 +13,7 @@ import { Beer } from '../beer'
 const PAGE_SIZE = 10
 
 export const BeerListScreen = () => {
-  const { data: beers, isLoading, isError } = useBeers()
+  const { data: beers, isLoading, isError, error } = useBeers()
 
   // Instead of querying the API with parameters, we'll do a local fuzzy search using fuse
   const [search, setSearch] = useState('')
@@ -68,7 +68,10 @@ export const BeerListScreen = () => {
         <SearchInput value={search} onChange={setSearch} />
       </div>
       {isError ? (
-        <ErrorMessage message="Failed to load beers! Please try again" />
+        <ErrorMessage
+          message="Failed to load beers! Please try again"
+          detailedMessage={(error as Error)?.message}
+        />
       ) : isLoading ? (
         <Loading />
       ) : filteredBeers ? (

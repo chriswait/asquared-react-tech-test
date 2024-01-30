@@ -116,12 +116,15 @@ const BeerDetails = ({ beer }: { beer: Beer }) => (
 
 export const BeerDetailsScreen = () => {
   const { id } = useParams()
-  const { data: beers, isLoading, isError } = useBeer(parseInt(id!, 10))
+  const { data: beers, isLoading, isError, error } = useBeer(parseInt(id!, 10))
   return (
     <div style={{ paddingTop: 40, paddingBottom: 80 }}>
       <Link to="/">Go Back</Link>
       {isError ? (
-        <ErrorMessage message="Failed to load beer details! Please try again" />
+        <ErrorMessage
+          message="Failed to load beer details! Please try again"
+          detailedMessage={(error as Error)?.message}
+        />
       ) : isLoading ? (
         <Loading />
       ) : beers?.[0] ? (

@@ -1,4 +1,10 @@
-export const ErrorMessage = ({ message }: { message: string }) => {
+export const ErrorMessage = ({
+  message,
+  detailedMessage,
+}: {
+  message: string
+  detailedMessage?: string
+}) => {
   return (
     <div
       style={{
@@ -7,9 +13,25 @@ export const ErrorMessage = ({ message }: { message: string }) => {
       }}
     >
       <div style={{ fontSize: 56 }}>😞</div>
-      <h2 style={{ marginBottom: '4rem' }}>{message}</h2>
+      <h2>{message}</h2>
+      {detailedMessage ? (
+        <pre
+          style={{
+            fontFamily: 'monospace',
+            border: '1px solid grey',
+            padding: '1rem',
+          }}
+        >
+          {detailedMessage}
+        </pre>
+      ) : null}
       <button
-        style={{ color: 'black', fontFamily: 'Inter', fontSize: 28 }}
+        style={{
+          color: 'black',
+          fontFamily: 'Inter',
+          fontSize: 28,
+          marginTop: '4rem',
+        }}
         onClick={() => window.location.reload()}
       >
         Retry
