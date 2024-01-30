@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { useBeer } from '../queries/useBeer'
+import { useBeer } from '../queries'
 import { Divider } from '../components/Divider'
 import { Stat } from '../components/Stat'
 import { Loading } from '../components/Loading'

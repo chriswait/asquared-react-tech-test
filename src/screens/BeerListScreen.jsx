@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import Fuse from 'fuse.js'
 
 import { BeerListItem } from '../components/BeerListItem'
-import { useBeers } from '../queries/useBeers'
 import { SearchInput } from '../components/SearchInput'
 import { Loading } from '../components/Loading'
 import { ErrorMessage } from '../components/ErrorMessage'
+import { useBeers } from '../queries'
 
 export const BeerListScreen = () => {
   const { data: beers, isLoading, isError } = useBeers()
