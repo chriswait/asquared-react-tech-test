@@ -71,7 +71,7 @@ export const BeerListScreen = () => {
         <ErrorMessage message="Failed to load beers! Please try again" />
       ) : isLoading ? (
         <Loading />
-      ) : (
+      ) : filteredBeers ? (
         <div style={{ paddingBottom: 80 }}>
           {filteredBeers.length > 0 ? (
             <>
@@ -87,7 +87,7 @@ export const BeerListScreen = () => {
             <ErrorMessage message="No matching beers found!" />
           )}
         </div>
-      )}
+      ) : null}
     </>
   )
 }
