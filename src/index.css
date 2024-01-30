@@ -1,0 +1,51 @@
+/* TYPOGRAPHY */
+html {
+  font-family: 'Inter', sans-serif;
+}
+h1 {
+  font-weight: 500;
+}
+h2 {
+  font-weight: 300;
+  margin-top: 0;
+}
+
+/* DARK MODE */
+a {
+  color: black;
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: black;
+  }
+  * {
+    color: white;
+    border-bottom-color: white !important;
+    text-decoration-color: white !important;
+  }
+  a {
+    color: white;
+  }
+}
+
+/* RESPONSIVE */
+body,
+html {
+  overflow-x: hidden;
+}
+main {
+  max-width: 768px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.responsive-row {
+  display: flex;
+  flex-direction: column;
+}
+@media only screen and (min-width: 600px) {
+  .responsive-row {
+    flex-direction: row;
+  }
+}
